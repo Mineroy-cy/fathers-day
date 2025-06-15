@@ -29,6 +29,19 @@ function App() {
   const [slideIndex, setSlideIndex] = useState(0);
   const [gallery, setGallery] = useState([]);
 
+  // Load gallery from localStorage on mount
+  useEffect(() => {
+    const savedGallery = localStorage.getItem("gallery");
+    if (savedGallery) {
+      setGallery(JSON.parse(savedGallery));
+    }
+  }, []);
+
+  // Save gallery to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("gallery", JSON.stringify(gallery));
+  }, [gallery]);
+
   // Typed.js effect and slider sync
   useEffect(() => {
     let typedInstance;
